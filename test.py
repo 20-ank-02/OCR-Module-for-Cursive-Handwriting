@@ -68,13 +68,18 @@ cv2.imshow('result', rect)
 if os.path.exists(f'{os.getcwd()}/Dataset/labels.csv'):
     labels = open(f'{os.getcwd()}/Dataset/labels.csv', 'r+', newline='')
     # code for, if file is empty or there's just column names no entries
-    lastLabel = csv.reader(labels)[-1]
+    lastLabel = 0
+    for line in csv.reader(labels):
+        pass
+    lastLabel = line[0]
     i = len(lastLabel[0])-5
     s = 0
     while (i >= 0):
-        s += int(lastLabel[0][i])*(10**((len(lastLabel[0])-5)-i))
+        if lastLabel[0][i].isdigit():
+            s += int(lastLabel[0][i])*(10**((len(lastLabel[0])-5)-i))
         i -= 1
     lastLabel = s
+    writerObj = csv.writer(labels)
 else:
     labels = open(f'{os.getcwd()}/Dataset/labels.csv', 'a', newline='')
     writerObj = csv.writer(labels)
