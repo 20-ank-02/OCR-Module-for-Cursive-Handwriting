@@ -72,14 +72,16 @@ if os.path.exists(f'{os.getcwd()}/Dataset/labels.csv'):
     for line in csv.reader(labels):
         pass
     lastLabel = line[0]
-    i = len(lastLabel[0])-5
+    i = len(lastLabel)-1
     s = 0
+    j = 0
     while (i >= 0):
-        if lastLabel[0][i].isdigit():
-            s += int(lastLabel[0][i])*(10**((len(lastLabel[0])-5)-i))
+        if lastLabel[i].isdigit():
+            s += int(lastLabel[i])*(10**j)
+            j += 1
         i -= 1
     lastLabel = s
-    writerObj = csv.writer(labels)
+    writerObj = csv.DictWriter(labels, ['filename', 'words'])
 else:
     labels = open(f'{os.getcwd()}/Dataset/labels.csv', 'a', newline='')
     writerObj = csv.writer(labels)
