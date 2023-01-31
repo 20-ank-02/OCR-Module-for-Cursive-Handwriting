@@ -8,16 +8,19 @@ import pandas as pd
 
 
 # Creating dataset directory if does not exist
-if not os.path.exists('Dataset'):
-    os.mkdir('Dataset')
+if not os.path.exists(f'{os.getcwd()}/Dataset'):
+    os.mkdir(f'{os.getcwd()}/Dataset')
+
+if not os.path.exists(f'{os.getcwd()}/temp'):
+    os.mkdir(f'{os.getcwd()}/temp')
 
 
 class OCR():
     def __init__(self):
         super.__init__()
 
-    def variables(self, d):
-        self.detailCheck = d
+    # def variables(self, d):
+    #     self.detailCheck = d
 
     def color(self, i):
         if self.result[i][2]*100 >= 0 and self.result[i][2]*100 <= 25:
@@ -30,16 +33,23 @@ class OCR():
             (r, g, b) = (85, 255, 0)
         return (b, g, r)
 
-    def imgRead(self):
+    def imgRead(self, fileName, model):
         # this needs to run only once to load the model into memory
-        self.imG = cv2.imread('test case.jpg')
-        reader = easyocr.Reader(['en'], gpu=True)
+        self.imG = cv2.imread(fileName)
+        reader = easyocr.Reader(['en'], gpu=True, recog_network=model)
         self.result = reader.readtext(self.imG, detail=1)
+        self.tempResult = ''
+        i = 0
+        while (i < len(self.result)):
+            self.tempResult += f'{self.result[i][1]}_,_'
+            i += 1
 
-    def rect(self):
-        for i in range(len(self.result)-3):
-            topLeft = self.result[i][0][0]  # [146, 134]
-            bottomRight = self.result[i][0][2]  # [537, 268]
+    def detailedImg(self):
+        for i in range(len(self.result)):
+            self.topLeft = np.round(
+                self.result[i][0][0]).astype('int')  # [146, 134]
+            self.bottomRight = np.round(
+                self.result[i][0][2]).astype('int')  # [537, 268]
     # if type(topLeft) == list or type(bottomRight) == list:
     #     # continue
     #     list_inttl = ''
@@ -52,10 +62,11 @@ class OCR():
     # drawing rectanlge
             rect = cv2.rectangle(self.imG, self.topLeft, self.bottomRight,
                                  self.color(i), thickness=3)
-    # rect = cv2.rectangle(imG, topLeft, bottomRight, (255, 255, 0), thickness=3)
-        cv2.imshow('result', rect)
 
-    def Label(self):
+        # cv2.imshow('result', rect)
+        cv2.imwrite(f'{os.getcwd()}/temp/bound.jpg', rect)
+
+    def crop_label(self):
 
         if os.path.exists(f'{os.getcwd()}/Dataset/labels.csv'):
             self.labels = open(f'{os.getcwd()}/Dataset/labels.csv',
@@ -85,14 +96,14 @@ class OCR():
             self.lastLabel = 0
 
     # def crop(self):
-        for i in range(len(self.result)-3):
+        for i in range(len(self.result)):
             # labeling
             self.writerObj.writerow(
-                {'filename': f'{self.lastLabel+i+1}.jpg', 'words': self.result[i][1]})
+                {'filename': f'{self.lastLabel+i+1}.jpg', 'words': self.correctResult[i]})
 
             # cropping image
-            self.topLeft = self.result[i][0][0]
-            self.bottomRight = self.result[i][0][2]
+            self.topLeft = np.round(self.result[i][0][0]).astype(int)
+            self.bottomRight = np.round(self.result[i][0][2]).astype(int)
 
             croppedImg = self.imG[self.topLeft[1]: self.bottomRight[1],
                                   self.topLeft[0]: self.bottomRight[0]]
@@ -103,50 +114,15 @@ class OCR():
 
         self.labels.close()
 
-    def docx(self):
-        # result = ['som3', 'text', 'f@r', 'te$t']
+    def docx(self, savePath):
 
-        # tempTxt = open('temp.txt', 'w', newline='')
-
-        # # tempTxt.writelines(result)
-
-        # i = 0
-        # while (i < len(result)):
-        #     tempTxt.write(f'{result[i]}_,_')
-        #     i += 1
-
-        # tempTxt.close()
-        # # os.system('cmd /k "start temp.txt"')
-
-        # tempTxt = open('temp.txt', 'r')
-        # # i = 0
-        # # while (i < len(result)):
-        # #     print(tempTxt.readline())
-        # #     i += 1
-        # result = tempTxt.readline().split(sep='_,_')
-        # print(result)
-        # tempTxt.close()
-
-        # Creating document template
+        self.correctResult = self.tempResult.split(sep='_,_')
         doc = docx.Document()
+        i = 0
+        while (i < len(self.correctResult)-1):
 
-        doc.add_paragraph(self.result[i][1])
+            doc.add_paragraph(self.correctResult[i])
 
-        doc.save('result_text.docx')
+            i += 1
 
-        # closing all opened windows and files
-        cv2.destroyAllWindows()
-
-        # cmd command to open ms word of result.docx
-        opt = input('Show document?(y or n)= ')
-
-        if opt == 'y':
-            os.system('cmd /c "start result_text.docx"')
-        else:
-            SystemExit()
-
-
-# # caputering pressed key
-# k = cv2.waitKey(0)
-
-# if k == 27:
+        doc.save(savePath)
