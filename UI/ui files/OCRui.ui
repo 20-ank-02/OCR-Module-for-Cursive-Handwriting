@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1138</width>
+    <height>627</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background:rgb(10, 15, 32)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0" rowspan="2">
+     <widget class="QFrame" name="settingsframe">
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(57, 50, 62);
+border-radius:5px;
+border-style:solid;
+border-width:1px;
+border-color:none</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 500 9pt &quot;Overpass&quot;;
+</string>
+         </property>
+         <property name="text">
+          <string>Open Image</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 500 9pt &quot;Overpass&quot;;
+border-style:none;</string>
+         </property>
+         <property name="text">
+          <string>Model</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QComboBox" name="comboBox">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="checkBox_3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 500 9pt &quot;Overpass&quot;;
+border-style:none;</string>
+         </property>
+         <property name="text">
+          <string>Details</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>405</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 500 9pt &quot;Overpass&quot;;
+border-style:none;</string>
+         </property>
+         <property name="text">
+          <string>Pre-Processing</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QCheckBox" name="checkBox_2">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 500 9pt &quot;Overpass&quot;;
+border-style:none;</string>
+         </property>
+         <property name="text">
+          <string>Thresholding</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QCheckBox" name="checkBox">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 500 9pt &quot;Overpass&quot;;
+border-style:none;</string>
+         </property>
+         <property name="text">
+          <string>Skewness</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="3">
+     <widget class="QSplitter" name="splitter_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QFrame" name="imageframe">
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(57, 50, 62);
+border-radius:5px;
+border-style:solid;
+border-width:1px;
+border-color:none;
+</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="styleSheet">
+           <string notr="true">font: 500 9pt &quot;Overpass&quot;;
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap>../test case.jpg</pixmap>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QFrame" name="resultTextframe">
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(57, 50, 62);
+border-radius:5px;
+border-style:solid;
+border-width:1px;
+border-color:none;
+</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QPlainTextEdit" name="plainTextEdit">
+          <property name="styleSheet">
+           <string notr="true">font: 500 9pt &quot;Overpass&quot;;
+color: rgb(255, 255, 255);
+border-style:none;</string>
+          </property>
+          <property name="plainText">
+           <string>Result_,_Text_,_</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSplitter" name="splitter_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QScrollBar" name="verticalScrollBar">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QScrollBar" name="horizontalScrollBar">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>838</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="styleSheet">
+       <string notr="true">font: 500 9pt &quot;Overpass&quot;;
+color: rgb(255, 255, 255);
+background:rgb(140, 141, 208);
+
+</string>
+      </property>
+      <property name="text">
+       <string>Export</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="pushButton">
+      <property name="styleSheet">
+       <string notr="true">font: 500 9pt &quot;Overpass&quot;;
+color: rgb(255, 255, 255);
+background:rgb(140, 141, 208);
+
+</string>
+      </property>
+      <property name="text">
+       <string>OCR</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

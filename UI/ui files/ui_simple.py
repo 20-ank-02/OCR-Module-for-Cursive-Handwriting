@@ -1,26 +1,25 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'simple.ui'
+## Form generated from reading UI file 'simple.ui'
 ##
-# Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.4.2
 ##
-# WARNING! All changes made in this file will be lost when recompiling UI file!
+## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-                            QMetaObject, QObject, QPoint, QRect,
-                            QSize, QTime, QUrl, Qt)
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-                           QFont, QFontDatabase, QGradient, QIcon,
-                           QImage, QKeySequence, QLinearGradient, QPainter,
-                           QPalette, QPixmap, QRadialGradient, QTransform)
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QGraphicsView,
-                               QGridLayout, QHBoxLayout, QLabel, QMainWindow,
-                               QMenuBar, QPlainTextEdit, QPushButton, QSizePolicy,
-                               QSpacerItem, QSplitter, QStatusBar, QVBoxLayout,
-                               QWidget, QGraphicsScene)
-
+    QGridLayout, QHBoxLayout, QLabel, QMainWindow,
+    QMenuBar, QPlainTextEdit, QPushButton, QSizePolicy,
+    QSpacerItem, QSplitter, QStatusBar, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -39,20 +38,19 @@ class Ui_MainWindow(object):
         self.OpenImageBtn = QPushButton(self.centralwidget)
         self.OpenImageBtn.setObjectName(u"OpenImageBtn")
         self.OpenImageBtn.setStyleSheet(u"color:rgb(255, 255, 255);\n"
-                                        "background-color: rgb(140, 141, 208);\n"
-                                        "font: 700 9pt \"Overpass\";")
+"background-color: rgb(140, 141, 208);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.verticalLayout_3.addWidget(self.OpenImageBtn)
 
-        self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-                                 "font: 700 9pt \"Overpass\";")
+"font: 700 9pt \"Overpass\";")
 
         self.verticalLayout_3.addWidget(self.label)
 
@@ -65,14 +63,14 @@ class Ui_MainWindow(object):
         self.DetailscheckBox = QCheckBox(self.centralwidget)
         self.DetailscheckBox.setObjectName(u"DetailscheckBox")
         self.DetailscheckBox.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-                                           "font: 700 9pt \"Overpass\";")
+"font: 700 9pt \"Overpass\";")
 
         self.verticalLayout_3.addWidget(self.DetailscheckBox)
 
-        self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
+
 
         self.horizontalLayout_3.addLayout(self.verticalLayout_3)
 
@@ -84,32 +82,30 @@ class Ui_MainWindow(object):
         self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-
         self.ImageLabel = QGraphicsView(self.verticalLayoutWidget)
-
         self.ImageLabel.setObjectName(u"ImageLabel")
         self.ImageLabel.setStyleSheet(u"background-color:rgb(57, 50, 62);\n"
-                                      "border-radius:5px;\n"
-                                      "border-style:solid;\n"
-                                      "border-width:1px;\n"
-                                      "border-color:white;")
+"border-radius:5px;\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-color:white;")
 
         self.verticalLayout.addWidget(self.ImageLabel)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalSpacer_2 = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
 
         self.OCRBtn = QPushButton(self.verticalLayoutWidget)
         self.OCRBtn.setObjectName(u"OCRBtn")
         self.OCRBtn.setStyleSheet(u"color:rgb(255, 255, 255);\n"
-                                  "background-color: rgb(140, 141, 208);\n"
-                                  "font: 700 9pt \"Overpass\";")
+"background-color: rgb(140, 141, 208);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.horizontalLayout_2.addWidget(self.OCRBtn)
+
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
@@ -122,35 +118,36 @@ class Ui_MainWindow(object):
         self.ResultText = QPlainTextEdit(self.verticalLayoutWidget_2)
         self.ResultText.setObjectName(u"ResultText")
         self.ResultText.setStyleSheet(u"background-color:rgb(57, 50, 62);\n"
-                                      "border-radius:5px;\n"
-                                      "border-style:solid;\n"
-                                      "border-width:1px;\n"
-                                      "border-color:none;\n"
-                                      "color:rgb(255, 255, 255);\n"
-                                      "font: 500 9pt \"Overpass\";")
+"border-radius:5px;\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-color:none;\n"
+"color:rgb(255, 255, 255);\n"
+"font: 500 9pt \"Overpass\";")
 
         self.verticalLayout_2.addWidget(self.ResultText)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
         self.ExportBtn = QPushButton(self.verticalLayoutWidget_2)
         self.ExportBtn.setObjectName(u"ExportBtn")
         self.ExportBtn.setStyleSheet(u"color:rgb(255, 255, 255);\n"
-                                     "background-color: rgb(140, 141, 208);\n"
-                                     "font: 700 9pt \"Overpass\";")
+"background-color: rgb(140, 141, 208);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.horizontalLayout.addWidget(self.ExportBtn)
+
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.splitter.addWidget(self.verticalLayoutWidget_2)
 
         self.horizontalLayout_3.addWidget(self.splitter)
+
 
         self.gridLayout.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
 
@@ -169,16 +166,11 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate(
-            "MainWindow", u"MainWindow", None))
-        self.OpenImageBtn.setText(QCoreApplication.translate(
-            "MainWindow", u"Open Image", None))
-        self.label.setText(QCoreApplication.translate(
-            "MainWindow", u"Model", None))
-        self.DetailscheckBox.setText(
-            QCoreApplication.translate("MainWindow", u"Details", None))
-        self.OCRBtn.setText(QCoreApplication.translate(
-            "MainWindow", u"OCR", None))
-        self.ExportBtn.setText(QCoreApplication.translate(
-            "MainWindow", u"Export", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.OpenImageBtn.setText(QCoreApplication.translate("MainWindow", u"Open Image", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Model", None))
+        self.DetailscheckBox.setText(QCoreApplication.translate("MainWindow", u"Details", None))
+        self.OCRBtn.setText(QCoreApplication.translate("MainWindow", u"OCR", None))
+        self.ExportBtn.setText(QCoreApplication.translate("MainWindow", u"Export", None))
     # retranslateUi
+

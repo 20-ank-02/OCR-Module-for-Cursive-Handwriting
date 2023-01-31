@@ -4,7 +4,7 @@ import numpy as np
 import docx
 import os
 import csv
-import pandas as pd
+# import pandas as pd
 
 
 # Creating dataset directory if does not exist
@@ -26,7 +26,7 @@ def color(i):
 
 # this needs to run only once to load the model into memory
 
-imG = cv2.imread('test case.jpg')
+imG = cv2.imread('1.jpg')
 reader = easyocr.Reader(['en'], gpu=True)
 result = reader.readtext(imG, detail=1)
 
@@ -34,9 +34,9 @@ result = reader.readtext(imG, detail=1)
 # Creating document template
 doc = docx.Document()
 
-for i in range(len(result)-3):
-    topLeft = result[i][0][0]  # [146, 134]
-    bottomRight = result[i][0][2]  # [537, 268]
+for i in range(len(result)):
+    topLeft = np.round(result[i][0][0]).astype(int)  # [146, 134]
+    bottomRight = np.round(result[i][0][2]).astype(int)  # [537, 268]
     # if type(topLeft) == list or type(bottomRight) == list:
     #     # continue
     #     list_inttl = ''
@@ -85,14 +85,14 @@ else:
 k = cv2.waitKey(0)
 
 if k == 27:
-    for i in range(len(result)-3):
+    for i in range(len(result)):
         # labeling
         writerObj.writerow(
             {'filename': f'{lastLabel+i+1}.jpg', 'words': result[i][1]})
 
         # cropping image
-        topLeft = result[i][0][0]
-        bottomRight = result[i][0][2]
+        topLeft = np.round(result[i][0][0]).astype(int)
+        bottomRight = np.round(result[i][0][2]).astype(int)
 
         croppedImg = imG[topLeft[1]: bottomRight[1],
                          topLeft[0]: bottomRight[0]]

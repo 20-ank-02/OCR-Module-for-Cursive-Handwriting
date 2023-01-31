@@ -4,7 +4,7 @@ from PySide6.QtCore import QRectF
 from OCR_class import *
 
 
-class ui_bindings(Ui_MainWindow):
+class ui_bindings(Ui_MainWindow, OCR):
     def __init__(self, window):
         # super.__init__()
         self.setupUi(window)
@@ -15,7 +15,7 @@ class ui_bindings(Ui_MainWindow):
         self.OpenImageBtn.clicked.connect(self.openImgBtn)
         self.ImageLabel.wheelEvent = self.zoom
         self.ExportBtn.clicked.connect(self.export)
-        self.OCRBtn.clicked.connect(self.resultText)
+        self.OCRBtn.clicked.connect(self.imgText)
 
         # self.ImageLabel.resizeEvent = self.doSomething
 
@@ -50,33 +50,45 @@ class ui_bindings(Ui_MainWindow):
     def zoom(self, event):
 
         if event.angleDelta() == QPoint(0, 120):
-            print(event.angleDelta())
+            # print(event.angleDelta())
             self.ImageLabel.scale(2, 2)
 
         if event.angleDelta() == QPoint(0, -120):
-            print(event.angleDelta())
+            # print(event.angleDelta())
             self.ImageLabel.scale(0.5, 0.5)
 
-    def resultText(self):
-        self.ResultText.setPlainText('Hello world')
+    def imgText(self):
+        self.imgRead(self.fileName[0], self.modelSelected)
+        self.ResultText.clear()
+        self.ResultText.appendPlainText(self.tempResult)
+        # for i in range(len(text)): for list of strings
+        #     self.ResultText.appendPlainText(text[i])
 
     def export(self):
-        print(self.ResultText.toPlainText())
+        self.tempResult = self.ResultText.toPlainText()
         self.saveFileLocation = QFileDialog.getSaveFileName(
             None, '', '', '*.docx')
         print(self.saveFileLocation[0])
+        self.docx(self.saveFileLocation[0])
+        self.crop_label()
 
     def modelList(self, count):
         # C:/Users/UserName/.EasyOCR/model
         if count == 0:
             modelList = os.listdir('C:/Users/ANKIT/.EasyOCR/model')
+            modelList.append('standard')
             self.comboBox.addItems(modelList)
             count = 1
-        modelSelected = self.comboBox.currentText()
-        print(modelSelected)
+        self.modelSelected = (self.comboBox.currentText().split(sep='.'))[0]
+        print(self.modelSelected)
 
     def details(self):
-        print(self.DetailscheckBox.checkState())
+        if str(self.DetailscheckBox.checkState()) == 'CheckState.Checked':
+            self.detailedImg()
+            self.showImg(
+                'E:/Projects/Techgium/Dataset Collection/temp/bound.jpg')
+        else:
+            self.showImg(self.fileName[0])
 
     def update(self):
         # mdownload new model to the directory and update modelList(0)
