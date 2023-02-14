@@ -26,7 +26,7 @@ def color(i):
 # , recog_network='best_accuracy'
 
 imG = cv2.imread('test case.jpg')
-reader = easyocr.Reader(['en'], gpu=True)
+reader = easyocr.Reader(['en'], gpu=True,)
 result = reader.readtext(imG, detail=1)
 
 # for this image, result is a list containing 2 tuples. each for detected text
@@ -67,7 +67,7 @@ cv2.imshow('result', rect)
 
 if os.path.exists(f'{os.getcwd()}/Dataset/labels.csv'):
     labels = open(f'{os.getcwd()}/Dataset/labels.csv', 'r+', newline='')
-    # code for, if file is empty or there's just column names no entries
+
     lastLabel = 0
     for line in csv.reader(labels):
         pass
@@ -76,7 +76,7 @@ if os.path.exists(f'{os.getcwd()}/Dataset/labels.csv'):
     s = 0
     j = 0
     while (i >= 0):
-        if lastLabel[i].isdigit():
+        if lastLabel[i].isdigit():  # if file is empty or there's just column names no entries
             s += int(lastLabel[i])*(10**j)
             j += 1
         i -= 1

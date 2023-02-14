@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFormLayout,
-    QGraphicsView, QHBoxLayout, QLabel, QMainWindow,
-    QPlainTextEdit, QPushButton, QSizePolicy, QSlider,
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QGraphicsView,
+    QGridLayout, QHBoxLayout, QLabel, QMainWindow,
+    QMenuBar, QPlainTextEdit, QPushButton, QSizePolicy,
     QSpacerItem, QSplitter, QStatusBar, QVBoxLayout,
     QWidget)
 
@@ -26,32 +26,22 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(859, 489)
-        MainWindow.setStyleSheet(u"")
+        MainWindow.setStyleSheet(u"background-color: rgb(10, 15, 32);")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.formLayout = QFormLayout(self.centralwidget)
-        self.formLayout.setObjectName(u"formLayout")
+        self.gridLayout = QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.OpenImageBtn = QPushButton(self.centralwidget)
         self.OpenImageBtn.setObjectName(u"OpenImageBtn")
-        self.OpenImageBtn.setStyleSheet(u"")
+        self.OpenImageBtn.setStyleSheet(u"color:rgb(255, 255, 255);\n"
+"background-color: rgb(140, 141, 208);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.verticalLayout_3.addWidget(self.OpenImageBtn)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 13, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_3.addItem(self.verticalSpacer_4)
-
-        self.label_3 = QLabel(self.centralwidget)
-        self.label_3.setObjectName(u"label_3")
-
-        self.verticalLayout_3.addWidget(self.label_3)
-
-        self.userComboBox = QComboBox(self.centralwidget)
-        self.userComboBox.setObjectName(u"userComboBox")
-
-        self.verticalLayout_3.addWidget(self.userComboBox)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -59,48 +49,30 @@ class Ui_MainWindow(object):
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setStyleSheet(u"")
+        self.label.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.verticalLayout_3.addWidget(self.label)
 
         self.comboBox = QComboBox(self.centralwidget)
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setStyleSheet(u"")
+        self.comboBox.setStyleSheet(u"background-color: rgb(255, 255, 255);")
 
         self.verticalLayout_3.addWidget(self.comboBox)
 
         self.DetailscheckBox = QCheckBox(self.centralwidget)
         self.DetailscheckBox.setObjectName(u"DetailscheckBox")
-        self.DetailscheckBox.setStyleSheet(u"")
+        self.DetailscheckBox.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.verticalLayout_3.addWidget(self.DetailscheckBox)
 
-        self.verticalSpacer = QSpacerItem(20, 13, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
-        self.rangeFilter = QSlider(self.centralwidget)
-        self.rangeFilter.setObjectName(u"rangeFilter")
-        self.rangeFilter.setOrientation(Qt.Horizontal)
 
-        self.verticalLayout_3.addWidget(self.rangeFilter)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 18, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_3.addItem(self.verticalSpacer_3)
-
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-
-        self.verticalLayout_3.addWidget(self.label_2)
-
-        self.themeBox = QComboBox(self.centralwidget)
-        self.themeBox.setObjectName(u"themeBox")
-
-        self.verticalLayout_3.addWidget(self.themeBox)
-
-
-        self.formLayout.setLayout(0, QFormLayout.LabelRole, self.verticalLayout_3)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_3)
 
         self.splitter = QSplitter(self.centralwidget)
         self.splitter.setObjectName(u"splitter")
@@ -112,7 +84,11 @@ class Ui_MainWindow(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.ImageLabel = QGraphicsView(self.verticalLayoutWidget)
         self.ImageLabel.setObjectName(u"ImageLabel")
-        self.ImageLabel.setStyleSheet(u"")
+        self.ImageLabel.setStyleSheet(u"background-color:rgb(57, 50, 62);\n"
+"border-radius:5px;\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-color:white;")
 
         self.verticalLayout.addWidget(self.ImageLabel)
 
@@ -124,7 +100,9 @@ class Ui_MainWindow(object):
 
         self.OCRBtn = QPushButton(self.verticalLayoutWidget)
         self.OCRBtn.setObjectName(u"OCRBtn")
-        self.OCRBtn.setStyleSheet(u"")
+        self.OCRBtn.setStyleSheet(u"color:rgb(255, 255, 255);\n"
+"background-color: rgb(140, 141, 208);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.horizontalLayout_2.addWidget(self.OCRBtn)
 
@@ -139,7 +117,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.ResultText = QPlainTextEdit(self.verticalLayoutWidget_2)
         self.ResultText.setObjectName(u"ResultText")
-        self.ResultText.setStyleSheet(u"")
+        self.ResultText.setStyleSheet(u"background-color:rgb(57, 50, 62);\n"
+"border-radius:5px;\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-color:none;\n"
+"color:rgb(255, 255, 255);\n"
+"font: 500 9pt \"Overpass\";")
 
         self.verticalLayout_2.addWidget(self.ResultText)
 
@@ -151,7 +135,9 @@ class Ui_MainWindow(object):
 
         self.ExportBtn = QPushButton(self.verticalLayoutWidget_2)
         self.ExportBtn.setObjectName(u"ExportBtn")
-        self.ExportBtn.setStyleSheet(u"")
+        self.ExportBtn.setStyleSheet(u"color:rgb(255, 255, 255);\n"
+"background-color: rgb(140, 141, 208);\n"
+"font: 700 9pt \"Overpass\";")
 
         self.horizontalLayout.addWidget(self.ExportBtn)
 
@@ -160,9 +146,16 @@ class Ui_MainWindow(object):
 
         self.splitter.addWidget(self.verticalLayoutWidget_2)
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.splitter)
+        self.horizontalLayout_3.addWidget(self.splitter)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QMenuBar(MainWindow)
+        self.menubar.setObjectName(u"menubar")
+        self.menubar.setGeometry(QRect(0, 0, 859, 25))
+        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -175,14 +168,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.OpenImageBtn.setText(QCoreApplication.translate("MainWindow", u"Open Image", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"User", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Model", None))
         self.DetailscheckBox.setText(QCoreApplication.translate("MainWindow", u"Details", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Theme", None))
-        self.splitter.setStyleSheet("")
-        self.verticalLayoutWidget.setStyleSheet("")
         self.OCRBtn.setText(QCoreApplication.translate("MainWindow", u"OCR", None))
-        self.verticalLayoutWidget_2.setStyleSheet("")
         self.ExportBtn.setText(QCoreApplication.translate("MainWindow", u"Export", None))
     # retranslateUi
 

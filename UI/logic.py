@@ -1,15 +1,22 @@
-from ui_simple import *
-from PySide6.QtWidgets import QFileDialog, QGraphicsScene
+from ui_simpleWhite import *
+from PySide6.QtWidgets import QFileDialog, QGraphicsScene, QLineEdit
 from PySide6.QtCore import QRectF
 from OCR_class import *
+import qdarktheme
+from PySide6.QtCore import QEvent
 
 
-class ui_bindings(Ui_MainWindow, OCR):
+class UI_Bindings(Ui_MainWindow, OCR):
+    newUserName = 'called'
+
     def __init__(self, window):
         # super.__init__()
         self.setupUi(window)
-        window.setWindowTitle('Techgium')
+        window.setWindowTitle('R.A.M.P')
+        self.userList(0)
         self.modelList(0)
+        self.theme(0)
+        self.userComboBox.activated.connect(self.userList)
         self.comboBox.activated.connect(self.modelList)
         self.DetailscheckBox.stateChanged.connect(self.details)
         self.OpenImageBtn.clicked.connect(self.openImgBtn)
@@ -19,10 +26,21 @@ class ui_bindings(Ui_MainWindow, OCR):
 
         # self.ImageLabel.resizeEvent = self.doSomething
 
+    def theme(self, count):
+        if count == 0:
+            self.themeBox.addItems(qdarktheme.get_themes())
+
+        self.themeBox.currentTextChanged.connect(qdarktheme.setup_theme)
+
     def openImgBtn(self):
+        # self.statusLabel.setText('not started')
         self.fileName = QFileDialog.getOpenFileName(
             None, '', "", "Images (*.png *.xpm *.jpg)")
-        self.showImg(self.fileName[0])
+
+        if self.fileName == ('', ''):
+            pass
+        else:
+            self.showImg(self.fileName[0])
 
     def showImg(self, imgpath):
         # self.imageViewer(imgpath)
@@ -58,11 +76,28 @@ class ui_bindings(Ui_MainWindow, OCR):
             self.ImageLabel.scale(0.5, 0.5)
 
     def imgText(self):
-        self.imgRead(self.fileName[0], self.modelSelected)
+        # self.statusLabel.setText('model error')
+
+        self.imgRead(
+            self.fileName[0], self.modelSelected)
         self.ResultText.clear()
         self.ResultText.appendPlainText(self.tempResult)
+        # self.statusLabel.setText('done')
         # for i in range(len(text)): for list of strings
         #     self.ResultText.appendPlainText(text[i])
+
+    def userList(self, count):
+        if count == 0:
+            userList = os.listdir(f'{os.getcwd()}/Dataset/')
+            userList.append('create user')
+            print(userList)
+            self.userComboBox.addItems(userList)
+            count = 1
+        self.userSelected = self.userComboBox.currentText()
+        if self.userSelected == 'create user':
+            self.newUser = CreateUser()
+            self.newUser.show()
+            # self.userComboBox.setCurrentText()
 
     def export(self):
         self.tempResult = self.ResultText.toPlainText()
@@ -70,23 +105,29 @@ class ui_bindings(Ui_MainWindow, OCR):
             None, '', '', '*.docx')
         print(self.saveFileLocation[0])
         self.docx(self.saveFileLocation[0])
-        self.crop_label()
+        self.crop_label(self.userSelected)
 
     def modelList(self, count):
         # C:/Users/UserName/.EasyOCR/model
         if count == 0:
             modelList = os.listdir('C:/Users/ANKIT/.EasyOCR/model')
             modelList.append('standard')
+
             self.comboBox.addItems(modelList)
+            self.comboBox.setCurrentText('standard')
             count = 1
         self.modelSelected = (self.comboBox.currentText().split(sep='.'))[0]
-        print(self.modelSelected)
+
+    def newUserDS(self, userName):
+
+        os.mkdir(f'{os.getcwd()}/Dataset/{userName}')
+        self.userList(0)
 
     def details(self):
         if str(self.DetailscheckBox.checkState()) == 'CheckState.Checked':
             self.detailedImg()
             self.showImg(
-                'E:/Projects/Techgium/Dataset Collection/temp/bound.jpg')
+                f'{os.getcwd()}/temp/bound.jpg')
         else:
             self.showImg(self.fileName[0])
 
@@ -95,12 +136,32 @@ class ui_bindings(Ui_MainWindow, OCR):
         pass
 
 
+class CreateUser(QWidget, UI_Bindings):
+    def __init__(self):
+        super().__init__()
+
+        self.layout = QHBoxLayout()
+        self.nameInput = QLineEdit()
+        self.addBtn = QPushButton()
+        self.nameInput.setPlaceholderText('Name')
+        self.addBtn.setText('Add')
+        self.layout.addWidget(self.nameInput)
+        self.layout.addWidget(self.addBtn)
+        self.setLayout(self.layout)
+        self.addBtn.clicked.connect(self.returnName)
+
+    def returnName(self):
+        self.newUserDS(self.nameInput.text())
+        self.close()
+
+
 if __name__ == "__main__":
     import sys
 
     app = QApplication(sys.argv)
     MainWindow = QMainWindow()
-    ui = ui_bindings(MainWindow)
+    ui = UI_Bindings(MainWindow)
+    qdarktheme.setup_theme("auto")
     # ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec())

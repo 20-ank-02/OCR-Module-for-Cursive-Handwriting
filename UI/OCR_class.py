@@ -41,7 +41,7 @@ class OCR():
         self.tempResult = ''
         i = 0
         while (i < len(self.result)):
-            self.tempResult += f'{self.result[i][1]}_,_'
+            self.tempResult += f'{i+1}. {self.result[i][1]}\n'
             i += 1
 
     def detailedImg(self):
@@ -50,26 +50,18 @@ class OCR():
                 self.result[i][0][0]).astype('int')  # [146, 134]
             self.bottomRight = np.round(
                 self.result[i][0][2]).astype('int')  # [537, 268]
-    # if type(topLeft) == list or type(bottomRight) == list:
-    #     # continue
-    #     list_inttl = ''
-    #     list_intbr = ''
-    #     for j in topLeft:
-    #         list_inttl = list_inttl+str(j)
-    #         list_intbr = list_intbr+str(j)
-    #         topLeft = int(list_inttl)
-    #         bottomRight = int(list_intbr)
+
     # drawing rectanlge
             rect = cv2.rectangle(self.imG, self.topLeft, self.bottomRight,
-                                 self.color(i), thickness=3)
+                                 self.color(i), thickness=2)
 
         # cv2.imshow('result', rect)
         cv2.imwrite(f'{os.getcwd()}/temp/bound.jpg', rect)
 
-    def crop_label(self):
+    def crop_label(self, userName):
 
-        if os.path.exists(f'{os.getcwd()}/Dataset/labels.csv'):
-            self.labels = open(f'{os.getcwd()}/Dataset/labels.csv',
+        if os.path.exists(f'{os.getcwd()}/Dataset/{userName}/labels.csv'):
+            self.labels = open(f'{os.getcwd()}/Dataset/{userName}/labels.csv',
                                'r+', newline='')
 
             self.lastLabel = 0
@@ -89,7 +81,7 @@ class OCR():
             self.writerObj = csv.DictWriter(self.labels, ['filename', 'words'])
         else:
             self.labels = open(
-                f'{os.getcwd()}/Dataset/labels.csv', 'a', newline='')
+                f'{os.getcwd()}/Dataset/{userName}/labels.csv', 'a', newline='')
             self.writerObj = csv.writer(self.labels)
             self.writerObj.writerow(['filename', 'words'])
             self.writerObj = csv.DictWriter(self.labels, ['filename', 'words'])
@@ -109,18 +101,21 @@ class OCR():
                                   self.topLeft[0]: self.bottomRight[0]]
 
             # saving cropped image
-            cv2.imwrite(f'{os.getcwd()}/Dataset/{self.lastLabel+i+1}.jpg',
+            cv2.imwrite(f'{os.getcwd()}/Dataset/{userName}/{self.lastLabel+i+1}.jpg',
                         croppedImg)  # f-strings
 
         self.labels.close()
 
     def docx(self, savePath):
 
-        self.correctResult = self.tempResult.split(sep='_,_')
+        self.correctResult = self.tempResult.split(sep='\n')
+
         doc = docx.Document()
         i = 0
         while (i < len(self.correctResult)-1):
 
+            self.correctResult[i] = self.correctResult[i].split(sep='. ')[
+                1]
             doc.add_paragraph(self.correctResult[i])
 
             i += 1
