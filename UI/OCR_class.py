@@ -38,25 +38,47 @@ class OCR():
         self.imG = cv2.imread(fileName)
         reader = easyocr.Reader(['en'], gpu=True, recog_network=model)
         self.result = reader.readtext(self.imG, detail=1)
-        self.tempResult = ''
+        self.tempResult = []
         i = 0
         while (i < len(self.result)):
-            self.tempResult += f'{i+1}. {self.result[i][1]}\n'
+            self.tempResult.append([np.round(self.result[i][0][0]).astype(
+                'int'), np.round(self.result[i][0][2]).astype('int'), self.result[i][1], self.result[i][2]])
+            # word coordinates top left
+            # word coordinates bottom right
+            # word
+            # word confidence
+
             i += 1
 
-    def detailedImg(self):
-        for i in range(len(self.result)):
-            self.topLeft = np.round(
-                self.result[i][0][0]).astype('int')  # [146, 134]
-            self.bottomRight = np.round(
-                self.result[i][0][2]).astype('int')  # [537, 268]
+    def detailedImg(self, i, fileName):
+        imgcpy = cv2.imread(fileName)
+        if i == -1:
+            i = 0
+            for i in range(len(self.tempResult)):
+                self.topLeft = self.tempResult[i][0]  # [146, 134]
+                self.bottomRight = self.tempResult[i][1]  # [537, 268]
 
-    # drawing rectanlge
-            rect = cv2.rectangle(self.imG, self.topLeft, self.bottomRight,
-                                 self.color(i), thickness=2)
+        # drawing rectanlge
+                rect = cv2.rectangle(imgcpy, self.topLeft, self.bottomRight,
+                                     self.color(i), thickness=2)
 
-        # cv2.imshow('result', rect)
-        cv2.imwrite(f'{os.getcwd()}/temp/bound.jpg', rect)
+            if os.path.exists(f'{os.getcwd()}/temp/bound.jpg'):
+                os.remove(f'{os.getcwd()}/temp/bound.jpg')
+            # cv2.imshow('result', rect)
+            cv2.imwrite(f'{os.getcwd()}/temp/bound.jpg', rect)
+
+        else:
+            self.topLeft = self.tempResult[i][0]  # [146, 134]
+            self.bottomRight = self.tempResult[i][1]  # [537, 268]
+            print(i)
+        # drawing rectanlge
+            rect = cv2.rectangle(imgcpy, self.topLeft,
+                                 self.bottomRight, self.color(i), thickness=2)
+
+            if os.path.exists(f'{os.getcwd()}/temp/bound.jpg'):
+                os.remove(f'{os.getcwd()}/temp/bound.jpg')
+
+            cv2.imwrite(f'{os.getcwd()}/temp/bound.jpg', rect)
 
     def crop_label(self, userName):
 
@@ -88,35 +110,32 @@ class OCR():
             self.lastLabel = 0
 
     # def crop(self):
-        for i in range(len(self.result)):
+        for i in range(len(self.tempResult)):
             # labeling
-            self.writerObj.writerow(
-                {'filename': f'{self.lastLabel+i+1}.jpg', 'words': self.correctResult[i]})
+            if self.tempResult[i][2] != '':
+                self.writerObj.writerow(
+                    {'filename': f'{self.lastLabel+i+1}.jpg', 'words': self.tempResult[i][2]})
 
-            # cropping image
-            self.topLeft = np.round(self.result[i][0][0]).astype(int)
-            self.bottomRight = np.round(self.result[i][0][2]).astype(int)
+                # cropping image
+                self.topLeft = self.tempResult[i][0]  # [146, 134]
+                self.bottomRight = self.tempResult[i][1]  # [537, 268]
 
-            croppedImg = self.imG[self.topLeft[1]: self.bottomRight[1],
-                                  self.topLeft[0]: self.bottomRight[0]]
+                croppedImg = self.imG[self.topLeft[1]: self.bottomRight[1],
+                                      self.topLeft[0]: self.bottomRight[0]]
 
-            # saving cropped image
-            cv2.imwrite(f'{os.getcwd()}/Dataset/{userName}/{self.lastLabel+i+1}.jpg',
-                        croppedImg)  # f-strings
+                # saving cropped image
+                cv2.imwrite(f'{os.getcwd()}/Dataset/{userName}/{self.lastLabel+i+1}.jpg',
+                            croppedImg)  # f-strings
 
         self.labels.close()
 
     def docx(self, savePath):
 
-        self.correctResult = self.tempResult.split(sep='\n')
-
         doc = docx.Document()
         i = 0
-        while (i < len(self.correctResult)-1):
-
-            self.correctResult[i] = self.correctResult[i].split(sep='. ')[
-                1]
-            doc.add_paragraph(self.correctResult[i])
+        while (i < len(self.tempResult)):
+            if self.tempResult[i][2] != '':
+                doc.add_paragraph(self.tempResult[i][2])
 
             i += 1
 
