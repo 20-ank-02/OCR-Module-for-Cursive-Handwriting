@@ -92,7 +92,7 @@
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>Details</string>
+         <string>Bound Box</string>
         </property>
        </widget>
       </item>
@@ -113,9 +113,22 @@
        </spacer>
       </item>
       <item>
-       <widget class="QSlider" name="rangeFilter">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QLineEdit" name="rangeLow">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="placeholderText">
+         <string>rangeLow</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="rangeHigh">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="placeholderText">
+         <string>rangeHigh</string>
         </property>
        </widget>
       </item>
@@ -202,10 +215,21 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QPlainTextEdit" name="ResultText">
-          <property name="styleSheet">
-           <string notr="true"/>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
           </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>223</width>
+             <height>414</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4"/>
+          </widget>
          </widget>
         </item>
         <item>
